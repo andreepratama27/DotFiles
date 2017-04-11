@@ -52,11 +52,15 @@ Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'drmikehenry/vim-fontsize'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'posva/vim-vue'
+Plug 'docunext/closetag.vim'
 
 "" Custom Settings
 set autoindent
 set showtabline=0
 let g:enabled_bold_font=1
+
+let g:user_emmet_expandabbr_key='<Tab>'
+let g:use_emmet_complete_tag = 1
 
 "" Mapping Custom
 nmap B ^
@@ -114,11 +118,12 @@ Plug 'thoughtbot/vim-rspec'
 Plug 'ecomba/vim-ruby-refactoring'
 
 "" HTML Bundle
-Plug 'amirh/HTML-AutoCloseTag'
+"" Plug 'amirh/HTML-AutoCloseTag'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
+Plug 'alvan/vim-closetag'
 
 "" PHP Bundle
 Plug 'arnaud-lb/vim-php-namespace'
@@ -393,7 +398,7 @@ noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 "" ctrlp.vim
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|tox|ico|git|hg|svn))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|public)|(\.(swp|tox|ico|git|hg|svn))$'
 let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
 let g:ctrlp_use_caching = 1
 
