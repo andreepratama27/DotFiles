@@ -41,7 +41,7 @@ Plug 'majutsushi/tagbar'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'jdkanani/vim-material-theme'
-Plug 'Shougo/neocomplcache.vim'
+" Plug 'Shougo/neocomplcache.vim'
 Plug 'tpope/vim-surround'
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'dracula/vim'
@@ -59,8 +59,9 @@ set autoindent
 set showtabline=0
 let g:enabled_bold_font=1
 
-let g:user_emmet_expandabbr_key='<Tab>'
-let g:use_emmet_complete_tag = 1
+let g:user_emmet_leader_key=','
+" let g:user_emmet_expandabbr_key='<Tab>'
+" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 "" Mapping Custom
 nmap B ^
@@ -82,7 +83,8 @@ let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
     let g:make = 'make'
 endif
-Plug 'Shougo/vimproc.vim', {'do': g:make}
+
+Plug 'Shougo/vimproc.vim', { 'do': g:make }
 
 "" Vim-Session
 Plug 'xolox/vim-misc'
@@ -94,7 +96,7 @@ endif
 
 if v:version >= 704
   "" Snippets
-  " Plug 'SirVer/ultisnips'
+  Plug 'SirVer/ultisnips'
   Plug 'FelikZ/ctrlp-py-matcher'
 endif
 
