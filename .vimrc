@@ -1,5 +1,7 @@
 if has('vim_starting')
   set nocompatible               " Be iMproved
+	set wrap!
+    "set autochdir
 endif
 
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
@@ -53,15 +55,16 @@ Plug 'drmikehenry/vim-fontsize'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'posva/vim-vue'
 Plug 'docunext/closetag.vim'
+Plug 'evidens/vim-twig'
+" Plug 'vim-syntastic/syntastic'
 
 "" Custom Settings
 set autoindent
 set showtabline=0
 let g:enabled_bold_font=1
 
-let g:user_emmet_leader_key=','
-" let g:user_emmet_expandabbr_key='<Tab>'
-" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+let g:user_emmet_expandabbr_key='<Tab>'
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 "" Mapping Custom
 nmap B ^
@@ -84,6 +87,76 @@ if system('uname -o') =~ '^GNU/'
     let g:make = 'make'
 endif
 
+" BufOnly.vim  -  Delete all the buffers except the current/named buffer.
+"
+" Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
+"
+" Distributed under the terms of the Vim license.  See ":help license".
+"
+" Usage:
+"
+" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
+"
+" Without any arguments the current buffer is kept.  With an argument the
+" buffer name/number supplied is kept.
+
+command! -nargs=? -complete=buffer -bang Bonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BOnly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang Bufonly
+    \ :call BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BufOnly
+    \ :call BufOnly('<args>', '<bang>')
+
+function! BufOnly(buffer, bang)
+	if a:buffer == ''
+		" No buffer provided, use the current buffer.
+		let buffer = bufnr('%')
+	elseif (a:buffer + 0) > 0
+		" A buffer number was provided.
+		let buffer = bufnr(a:buffer + 0)
+	else
+		" A buffer name was provided.
+		let buffer = bufnr(a:buffer)
+	endif
+
+	if buffer == -1
+		echohl ErrorMsg
+		echomsg "No matching buffer for" a:buffer
+		echohl None
+		return
+	endif
+
+	let last_buffer = bufnr('$')
+
+	let delete_count = 0
+	let n = 1
+	while n <= last_buffer
+		if n != buffer && buflisted(n)
+			if a:bang == '' && getbufvar(n, '&modified')
+				echohl ErrorMsg
+				echomsg 'No write since last change for buffer'
+							\ n '(add ! to override)'
+				echohl None
+			else
+				silent exe 'bdel' . a:bang . ' ' . n
+				if ! buflisted(n)
+					let delete_count = delete_count+1
+				endif
+			endif
+		endif
+		let n = n+1
+	endwhile
+
+	if delete_count == 1
+		echomsg delete_count "buffer deleted"
+	elseif delete_count > 1
+		echomsg delete_count "buffers deleted"
+	endif
+
+endfunction
+
 Plug 'Shougo/vimproc.vim', { 'do': g:make }
 
 "" Vim-Session
@@ -96,7 +169,7 @@ endif
 
 if v:version >= 704
   "" Snippets
-  Plug 'SirVer/ultisnips'
+  " Plug 'SirVer/ultisnips'
   Plug 'FelikZ/ctrlp-py-matcher'
 endif
 
@@ -155,7 +228,7 @@ set backspace=indent,eol,start
 "" Tabs. May be overriten by autocmd rules
 set tabstop=2
 set softtabstop=2
-set shiftwidth=4
+set shiftwidth=2
 set expandtab
 
 "" Map leader to ,
