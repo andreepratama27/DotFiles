@@ -1,5 +1,6 @@
 "------------- Graphical tweak -------------"
 " Use 24-bit (true-color) mode in Vim/Neovim
+
 if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
@@ -13,7 +14,9 @@ if filereadable(expand("~/.vimrc_background"))
     source ~/.vimrc_background
 endif
 
-set t_CO=256                                    " Set terminal color to 256 mode
+set t_CO=256
+
+" Set terminal color to 256 mode
 
 " Option for Macvim and gvim only
 if has("gui_running")
@@ -62,7 +65,8 @@ if (has("gui_running"))
         let g:airline_theme='base16_ocean'
     else
         set background=dark                     " For the dark version
-        colorscheme one
+        colorscheme hybrid_reverse
+        "colorscheme one
 
         let g:airline_theme='one'
         let g:one_allow_italics = 1             " Enable italic
@@ -70,7 +74,7 @@ if (has("gui_running"))
 
 else
     set background=dark                         " For the dark version
-    colorscheme one
+    colorscheme hybrid_reverse
     let g:airline_theme='one'
     let g:one_allow_italics = 1                 " Enable italic
 
@@ -114,9 +118,9 @@ set number                                      " Show number
 set clipboard=unnamed                       " Set clipboard to able to copy from and to system clipboard
 
 "------------- Indentation -------------"
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 set backspace=indent,eol,start                  " Make Backspace behave like another text editor
 set autoindent
@@ -128,6 +132,29 @@ set shiftround
 set list                                        " Display whitespace char
 set listchars=tab:▸\ ,eol:¬
 
+"------------- Custom Option -----------"
+set nowrap
+let g:enabled_bold_font=1
+let g:user_emmet_expandabbr_key='<Tab>'
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
+au InsertLeave * set nopaste
+let g:syntastic_javascript_checkers=['eslint']
+
+" switch buffer with tab
+nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+
+"------------- End of custom options -----------""
+
+" vim-javascript
+let g:javascript_enable_domhtmlcss = 1
+augroup vimrc-javascript
+  autocmd!
+  autocmd FileType javascript set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2 smartindent
+augroup END
+"
 "------------- Split Option -------------"
 set splitright                                  " New vsplit in the right of current
 set splitbelow                                  " New split below current
@@ -180,6 +207,9 @@ nmap <C-H> <C-W><C-H>
 nmap <C-J> <C-W><C-J>
 nmap <C-K> <C-W><C-K>
 nmap <C-L> <C-W><C-L>
+imap jj <ESC>
+nmap B ^
+nmap E $
 
 "---------- Auto Commands -----------"
 " Automatically source .vimrc file on save
@@ -209,7 +239,7 @@ autocmd Filetype css,scss setlocal ts=2 sw=2 expandtab
 "autocmd FileType css,scss set iskeyword=@,48-57,_,-,?,!,192-25
 
 "------------- Source Plugins -------------"
-so ~/.config/nvim/plugins.vim                           " source Plugin
+so ~/.config/nvim/plugins.vim" source Plugin
 
 "------------- Plugin Settings -------------"
 
@@ -237,54 +267,54 @@ if g:colors_name == 'one'
 endif
 
 ">> Ctrl-p <<"
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'                            " Show result on top
+let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:30,results:30'                            " Show result on top
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard'] " Ignore everything iside gitignore file
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist)|(\.(swp|ico|git|svn))$'
 
 ">> Make YouCompleteMe compatible with Ultisnips <<"
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
 
-">> Better keybinding for Ultisnips <<"
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+"">> Better keybinding for Ultisnips <<"
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:UltiSnipsEditSplit="vertical"                                                             " Open snip window in split
-let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
+"let g:UltiSnipsEditSplit="vertical"                                                             " Open snip window in split
+"let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
 
-" Autoclose scratch window
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
+"" Autoclose scratch window
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
 
-" YouCompleteMe Enable Omnifunc
-let g:ycm_semantic_triggers =  {
-    \   'c' : ['->', '.'],
-    \   'objc' : ['->', '.'],
-    \   'ocaml' : ['.', '#'],
-    \   'cpp,objcpp' : ['->', '.', '::'],
-    \   'perl' : ['->'],
-    \   'php' : ['->', '::', '(', 'use ', 'namespace ', '\'],
-    \   'cs,java,typescript,d,python,perl6,scala,vb,elixir,go' : ['.', 're!(?=[a-zA-Z]{3,4})'],
-    \   'html': ['<', '"', '</', ' '],
-    \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
-    \   'ruby' : ['.', '::'],
-    \   'lua' : ['.', ':'],
-    \   'erlang' : [':'],
-    \   'haskell' : ['.', 're!.'],
-    \   'scss,css': [ 're!^\s{2,4}', 're!:\s+' ],
-    \ }
+"" YouCompleteMe Enable Omnifunc
+"let g:ycm_semantic_triggers =  {
+"    \   'c' : ['->', '.'],
+"    \   'objc' : ['->', '.'],
+"    \   'ocaml' : ['.', '#'],
+"    \   'cpp,objcpp' : ['->', '.', '::'],
+"    \   'perl' : ['->'],
+"    \   'php' : ['->', '::', '(', 'use ', 'namespace ', '\'],
+"    \   'cs,java,typescript,d,python,perl6,scala,vb,elixir,go' : ['.', 're!(?=[a-zA-Z]{3,4})'],
+"    \   'html': ['<', '"', '</', ' '],
+"    \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
+"    \   'ruby' : ['.', '::'],
+"    \   'lua' : ['.', ':'],
+"    \   'erlang' : [':'],
+"    \   'haskell' : ['.', 're!.'],
+"    \   'scss,css': [ 're!^\s{2,4}', 're!:\s+' ],
+"    \ }
 
-" Prevent omnifunc appear in this filetype
-let g:ycm_filetype_blacklist={
-    \   'tagbar' : 1,
-    \   'nerdtree' : 1,
-    \   'markdown' : 1,
-    \   'unite' : 1,
-    \   'text' : 1,
-    \   'csv' : 1,
-    \}
+"" Prevent omnifunc appear in this filetype
+"let g:ycm_filetype_blacklist={
+"    \   'tagbar' : 1,
+"    \   'nerdtree' : 1,
+"    \   'markdown' : 1,
+"    \   'unite' : 1,
+"    \   'text' : 1,
+"    \   'csv' : 1,
+"    \}
 
 ">> Vim Airline <<"
 let g:airline_powerline_fonts = 1
@@ -376,7 +406,7 @@ let NERDTreeHijackNetrw = 0
 
 " Ignored files
 let g:NERDTreeIgnore=['\.swp$', '\~$', 'node_modules$', '\.map$', 'maps$']
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 
 nnoremap <c-n> :NERDTreeToggle<cr>
 
