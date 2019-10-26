@@ -1,0 +1,27 @@
+map <F2> :NERDTreeToggle<CR>
+set t_Co=256
+
+"if (has("termguicolors"))
+  set termguicolors
+"endif
+
+if has("gui_running")
+  " Better font reduce stress, https://github.com/andreberg/Meslo-Font
+  " Meslo has a good default line-height/vertical spacing
+  set guifont=Meslo\ LG\ L\ DZ\ for\ Powerline:h13
+  " Set line height
+  set linespace=6
+  " Remove all gui decoration: scroolbar right and leftt, top menu, tab.
+  set guioptions=
+  set relativenumber
+  " Set default window size
+  set lines=50 columns=120
+  :winpos 50 50 " Center window
+endif
+
+colorscheme jellybeans
+set background=dark
+
+" 'ryanoasis/vim-devicons' 
+let g:webdevicons_enable = 1
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0 
