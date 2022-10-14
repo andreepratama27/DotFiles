@@ -1,0 +1,35 @@
+local nnoremap = require("andreepratama27.keymap").nnoremap
+
+-- cmd means command, or semicolon in vim
+-- Ex is the command
+-- CR is enter
+
+--
+-- Remap Ex to Space + pv
+--
+nnoremap("<leader>pv", "<cmd>Ex<CR>")
+
+-- Remap FZF
+nnoremap("<C-p>", "<cmd>GFiles<CR>")
+
+-- Remap NerdTree
+nnoremap("<C-t>", "<cmd>NERDTreeToggle<CR>")
+-- nnoremap("<C-n>", "<cmd>NERDTreeFocus<CR>")
+
+-- Remap Split Pane Navigation
+nnoremap("gh", "<C-W><C-H>")
+nnoremap("gj", "<C-W><C-J>")
+nnoremap("gk", "<C-W><C-K>")
+nnoremap("gl", "<C-W><C-L>")
+
+-- Remap Tab
+nnoremap("<leader>tn", "<cmd>tabnew<CR>")
+nnoremap("<leader>t<leader>", "<cmd>tabnext<CR>")
+nnoremap("<leader>tm", "<cmd>tabmove<CR>")
+nnoremap("<leader>tc", "<cmd>tabclose<CR>")
+nnoremap("<leader>to", "<cmd>tabonly<CR>")
+
+-- Buffer
+nnoremap("<C-n>", "<cmd>bnext<CR>") -- Next Tab
+nnoremap("<C-b>", "<cmd>bprev<CR>") -- Prev Tab
+nnoremap("<C-1>", "<cmd>buffer 1<CR>")
