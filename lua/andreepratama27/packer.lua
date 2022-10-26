@@ -31,16 +31,25 @@ return require('packer').startup(function(use)
   -- # File Finder & Explorer
   -- Explorer
   -- use 'preservim/nerdtree'
-  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
+  --vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+  --use {
+  --"nvim-neo-tree/neo-tree.nvim",
+    --branch = "v2.x",
+    --requires = { 
+      --"nvim-lua/plenary.nvim",
+      --"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      --"MunifTanjim/nui.nvim",
+    --}
+  --}
+
   use {
-  "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-    requires = { 
-      "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
     }
   }
+
   -- Tab
   use 'akinsho/bufferline.nvim'
   -- Search Assistant
@@ -61,6 +70,7 @@ return require('packer').startup(function(use)
 
   -- Theme
   use 'ayu-theme/ayu-vim'
+  use 'EdenEast/nightfox.nvim'
 
   -- Terminal (ToggleTerm)
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
@@ -75,7 +85,14 @@ return require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/nvim-cmp'
-  use 'nvim-treesitter/nvim-treesitter'
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+  }
   use 'windwp/nvim-ts-autotag'
   use 'windwp/nvim-autopairs'
   use 'lewis6991/gitsigns.nvim'

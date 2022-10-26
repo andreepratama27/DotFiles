@@ -26,8 +26,10 @@ vim.keymap.set('n', '<C-f>', builtin.live_grep, {})
 
 -- Remap NerdTree
 -- nnoremap("<C-t>", "<cmd>NERDTreeToggle<CR>")
-nnoremap("<C-t>", "<cmd>Neotree<CR>")
+-- nnoremap("<C-t>", "<cmd>Neotree<CR>")
 -- nnoremap("<C-n>", "<cmd>NERDTreeFocus<CR>")
+nnoremap("<C-t>", "<cmd>NvimTreeToggle<CR>")
+nnoremap("<C-o>", "<cmd>NvimTreeFocus<CR>")
 
 -- Remap Split Pane Navigation
 nnoremap("gh", "<C-W><C-H>")
