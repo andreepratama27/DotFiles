@@ -10,8 +10,8 @@ return require('packer').startup(function(use)
   use 'morhetz/gruvbox'
   
 	-- FZF
-	use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
-	use {'junegunn/fzf.vim'}
+	--use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
+	--use {'junegunn/fzf.vim'}
 
   use 'jiangmiao/auto-pairs'
   use {
@@ -22,33 +22,42 @@ return require('packer').startup(function(use)
   }
 
   -- # StatusLine
-  --
   -- Vim Airline
   use 'vim-airline/vim-airline'
   use 'vim-airline/vim-airline-themes'
-
   -- Feline
   use 'feline-nvim/feline.nvim'
 
-  -- NerdTree File System
-  use 'preservim/nerdtree'
+  -- # File Finder & Explorer
+  -- Explorer
+  -- use 'preservim/nerdtree'
+  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+  use {
+  "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = { 
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  }
+  -- Tab
+  use 'akinsho/bufferline.nvim'
+  -- Search Assistant
+  use 'ggandor/leap.nvim'
 
+  -- # Language
   -- GraphQL
   use 'jparise/vim-graphql'
-
   -- Javascript & React
   use 'pangloss/vim-javascript'
   use 'leafgarland/typescript-vim'
   use 'peitalin/vim-jsx-typescript'
   use {'styled-components/vim-styled-components', branch = 'main'}
   use 'mxw/vim-jsx'
-
   -- Astro.build
   use 'AstroNvim/AstroNvim'
   use 'wuelnerdotexe/vim-astro'
-
-  -- Buffer Tab
-  use 'akinsho/bufferline.nvim'
 
   -- Theme
   use 'ayu-theme/ayu-vim'
@@ -58,8 +67,7 @@ return require('packer').startup(function(use)
     require("toggleterm").setup()
   end}
 
-  use 'ggandor/leap.nvim'
-
+  -- # Code Completion & LSP things
   -- LSP
   use 'neovim/nvim-lspconfig'
   use 'onsails/lspkind-nvim'
@@ -71,7 +79,15 @@ return require('packer').startup(function(use)
   use 'windwp/nvim-ts-autotag'
   use 'windwp/nvim-autopairs'
   use 'lewis6991/gitsigns.nvim'
-
+  -- Telescope
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-tree/nvim-web-devicons'
+  use 'BurntSushi/ripgrep'
+  use 'sharkdp/fd'
+  use {
+    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
   -- COC
   use {"neoclide/coc.nvim", branch = "release"}
 end)
