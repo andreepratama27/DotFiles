@@ -71,6 +71,11 @@ return require('packer').startup(function(use)
   -- Theme
   use 'ayu-theme/ayu-vim'
   use 'EdenEast/nightfox.nvim'
+  use 'marko-cerovac/material.nvim'
+  use 'sainnhe/sonokai'
+  use 'sainnhe/gruvbox-material'
+  use 'sainnhe/everforest'
+  use 'Mofiqul/dracula.nvim'
 
   -- Terminal (ToggleTerm)
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
@@ -89,10 +94,12 @@ return require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
   }
+  --[[
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   }
+  ]]--
   use 'windwp/nvim-ts-autotag'
   use 'windwp/nvim-autopairs'
   use 'lewis6991/gitsigns.nvim'
@@ -107,4 +114,22 @@ return require('packer').startup(function(use)
   }
   -- COC
   use {"neoclide/coc.nvim", branch = "release"}
+
+  -- Startup
+  --[[
+  use {
+    'goolord/alpha-nvim',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function ()
+      require'alpha'.setup(require'alpha.themes.startify'.config)
+    end
+  }
+  ]]--
+
+  use {
+    'goolord/alpha-nvim',
+    config = function ()
+      require'alpha'.setup(require'alpha.themes.dashboard'.config)
+    end
+  }
 end)
