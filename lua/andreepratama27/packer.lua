@@ -8,6 +8,9 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'folke/tokyonight.nvim'
   use 'morhetz/gruvbox'
+
+  -- Comment
+  use 'terrortylor/nvim-comment'
   
 	-- FZF
 	--use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
@@ -27,6 +30,10 @@ return require('packer').startup(function(use)
   use 'vim-airline/vim-airline-themes'
   -- Feline
   use 'feline-nvim/feline.nvim'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
 
   -- # File Finder & Explorer
   -- Explorer
@@ -76,6 +83,7 @@ return require('packer').startup(function(use)
   use 'sainnhe/gruvbox-material'
   use 'sainnhe/everforest'
   use 'Mofiqul/dracula.nvim'
+  use 'arcticicestudio/nord-vim'
 
   -- Terminal (ToggleTerm)
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
@@ -102,7 +110,6 @@ return require('packer').startup(function(use)
   ]]--
   use 'windwp/nvim-ts-autotag'
   use 'windwp/nvim-autopairs'
-  use 'lewis6991/gitsigns.nvim'
   -- Telescope
   use 'nvim-lua/plenary.nvim'
   use 'nvim-tree/nvim-web-devicons'
@@ -132,4 +139,6 @@ return require('packer').startup(function(use)
       require'alpha'.setup(require'alpha.themes.dashboard'.config)
     end
   }
+
+  use 'lewis6991/gitsigns.nvim'
 end)

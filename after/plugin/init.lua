@@ -8,16 +8,18 @@ vim.opt.termguicolors = true
 require("bufferline").setup{}
 
 -- Vim Airline
-gset('airline#extensions#tabline#enabled', 1)
-gset('airline#extensions#branch#enabled', 1)
-gset('airline#extensions#branch#empty_message', '')
-gset('airline#extensions#branch#use_vcscommand', 0)
-gset('airline#extensions#branch#displayed_head_limit', 10)
-gset('airline#extensions#branch#format', 0)
-gset('airline#extensions#hunks#enabled', 1)
-gset('airline#extensions#hunks#non_zero_only', 0)
-gset('airline#extensions#hunks#hunk_symbols', "['+', '~', '-']")
-gset('airline_powerline_fonts', 1)
+-- gset('airline#extensions#tabline#enabled', 1)
+-- gset('airline#extensions#branch#enabled', 1)
+-- gset('airline#extensions#branch#empty_message', '')
+-- gset('airline#extensions#branch#use_vcscommand', 0)
+-- gset('airline#extensions#branch#displayed_head_limit', 10)
+-- gset('airline#extensions#branch#format', 0)
+-- gset('airline#extensions#hunks#enabled', 1)
+-- gset('airline#extensions#hunks#non_zero_only', 0)
+-- gset('airline#extensions#hunks#hunk_symbols', "['+', '~', '-']")
+-- gset('airline_powerline_fonts', 1)
+
+require('lualine').setup()
 
 -- Leap
 require("leap").add_default_mappings()
@@ -122,7 +124,47 @@ local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.tsx.filetype_to_parsername = { "javascript", "typescript.tsx" }
 
 -- Git Sign
-require('gitsigns').setup {}
+require('gitsigns').setup {
+  signs = {
+    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  },
+  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  watch_gitdir = {
+    interval = 1000,
+    follow_files = true
+  },
+  attach_to_untracked = true,
+  current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+    delay = 1000,
+    ignore_whitespace = false,
+  },
+  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+  sign_priority = 6,
+  update_debounce = 100,
+  status_formatter = nil, -- Use default
+  max_file_length = 40000, -- Disable if file is longer than this (in lines)
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = 'single',
+    style = 'minimal',
+    relative = 'cursor',
+    row = 0,
+    col = 1
+  },
+  yadm = {
+    enable = false
+  },
+}
 
 -- Icon
 require'nvim-web-devicons'.setup {
@@ -398,3 +440,6 @@ require('nightfox').setup({
     }
   }
 })
+
+-- Comment
+require('nvim_comment').setup()
